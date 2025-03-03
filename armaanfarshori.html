@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker Console</title>
+    <style>
+        body {
+            background-color: black;
+            color: #33ff33;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 20px;
+            white-space: pre-wrap;
+            overflow: hidden;
+        }
+        .console-container {
+            position: relative;
+            max-width: 800px;
+            margin: auto;
+            z-index: 1;
+            background: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .blink {
+            animation: blink 1s step-start infinite;
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix"></canvas>
+    <div class="console-container">
+        <h1>> Welcome...</h1>
+        <p>> Initializing...</p>
+        <p>> Identity Confirmed: <strong>Armaan Farshori</strong></p>
+        <p>> Occupation: <strong>Cloud Security & SOC-Focused Associate Program Manager</strong></p>
+        <p>> Skills: <strong>Cloud Security (AWS), SOC, Cybersecurity, VAPT, Compliance, Project Management</strong></p>
+        <p>> Certifications: <strong>MongoDB Basics, Cisco ISE, IBM CE, Cisco CCNA</strong></p>
+        <p>> Publications: <strong>UN-Uefi UN-Legacy, Medical Inventory via Edge Computing, Server-Less Cloud Computing</strong></p>
+        <p>> Contact: <strong><a href="https://www.linkedin.com/in/armaanfarshori" style="color: #33ff33;">LinkedIn</a></strong></p>
+        <p>> Status: ACTIVE <span class="blink">_</span></p>
+    </div>
+    <script>
+        const canvas = document.getElementById("matrix");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const matrixChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".split("");
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; /* Increased transparency */
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(51, 255, 51, 0.7)"; /* Less bright green */
+            ctx.font = `${fontSize}px Courier New`;
+            for (let i = 0; i < drops.length; i++) {
+                const text = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        setInterval(drawMatrix, 50);
+        window.addEventListener("resize", () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
+
