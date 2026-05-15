@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Armaan Farshori</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:       #0D1117;
+      --bg2:      #161B27;
+      --card:     #1C2333;
+      --card2:    #212840;
+      --text:     #E6EDF3;
+      --mid:      #8B949E;
+      --muted:    #484F58;
+      --border:   rgba(255,255,255,0.08);
+      --border-h: rgba(255,255,255,0.16);
+      --accent:   #58A6FF;
+      --green:    #3FB950;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,17,23,0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px; height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-weight: 700; font-size: 1rem; color: var(--text); letter-spacing: -.01em; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { font-size: .82rem; font-weight: 500; color: var(--mid); transition: color .15s; }
+    .nav-links a:hover { color: var(--text); }
+    @media(max-width: 600px) { nav { padding: 0 16px; } .nav-links { display: none; } }
+
+    /* ── PAGE WRAPPER ── */
+    .page { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── HERO ── */
+    .hero { padding: 64px 0 56px; display: flex; align-items: flex-start; gap: 36px; }
+    .hero-avatar { flex-shrink: 0; width: 120px; height: 120px; }
+    .hero-avatar img {
+      width: 120px; height: 120px; border-radius: 50%;
+      object-fit: cover; object-position: center top;
+      border: 2px solid var(--border); display: block;
+    }
+    @keyframes spin-slow { to { transform: rotate(360deg); } }
+
+    .hero-greeting { font-size: .95rem; font-weight: 500; color: var(--mid); margin-bottom: 6px; }
+    .hero-name { font-size: 2.2rem; font-weight: 700; letter-spacing: -.025em; line-height: 1.15; color: var(--text); margin-bottom: 6px; }
+    .hero-title { font-size: .95rem; font-weight: 500; color: var(--mid); margin-bottom: 16px; }
+    .hero-summary { font-size: .875rem; color: var(--mid); line-height: 1.8; max-width: 580px; margin-bottom: 16px; }
+    .hero-summary strong { color: var(--text); font-weight: 600; }
+    .hero-loc { font-size: .82rem; color: var(--muted); margin-bottom: 18px; }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+    .hero-tag {
+      font-size: .72rem; font-weight: 500; color: var(--mid);
+      background: var(--bg2); border: 1px solid var(--border);
+      padding: 4px 12px; border-radius: 999px;
+      transition: border-color .15s, color .15s;
+    }
+    .hero-tag:hover { border-color: var(--border-h); color: var(--text); }
+    @media(max-width: 580px) { .hero { flex-direction: column; gap: 20px; } .hero-name { font-size: 1.75rem; } }
+
+    /* ── TICKER ── */
+    .ticker-outer {
+      position: relative; overflow: hidden;
+      background: #E8ECF0;
+      border-top: 1px solid #D1D5DB;
+      border-bottom: 1px solid #D1D5DB;
+      padding: 20px 0;
+    }
+    .ticker-outer::before, .ticker-outer::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 2; pointer-events: none;
+    }
+    .ticker-outer::before { left: 0;  background: linear-gradient(to right, #E8ECF0, transparent); }
+    .ticker-outer::after  { right: 0; background: linear-gradient(to left,  #E8ECF0, transparent); }
+    .ticker-inner { display: flex; align-items: center; width: max-content; animation: ticker 36s linear infinite; }
+    .ticker-inner:hover { animation-play-state: paused; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .t-item { display: flex; align-items: center; gap: 10px; padding: 0 40px; border-right: 1px solid #D1D5DB; white-space: nowrap; }
+    .t-logo-wrap {
+      width: 88px; height: 36px; flex-shrink: 0;
+      background: #fff; border: 1px solid #D1D5DB; border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+      padding: 4px 8px; overflow: hidden;
+    }
+    .t-logo-wrap img { max-height: 26px; max-width: 76px; width: auto; height: auto; object-fit: contain; display: block; }
+    .t-logo-wrap img.logo-black { filter: brightness(0); }
+    .t-logo-fallback { font-size: .72rem; font-weight: 800; letter-spacing: .04em; color: #6B7280; text-align: center; }
+    .t-co   { font-size: .85rem; font-weight: 600; color: #111827; }
+    .t-role { font-size: .7rem; color: #6B7280; margin-top: 1px; }
+
+    /* ── SECTION CARD ── */
+    section {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 16px;
+    }
+    .sec-title { font-size: 1rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--mid); margin-bottom: 24px; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* ── EXPERIENCE ── */
+    .exp-list { display: flex; flex-direction: column; }
+    .exp-entry {
+      display: grid; grid-template-columns: 150px 1fr;
+      gap: 24px; padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-entry:first-child { padding-top: 0; }
+    .exp-entry:last-child  { border-bottom: none; padding-bottom: 0; }
+    .exp-meta { padding-top: 2px; }
+    .exp-dates { font-size: .72rem; font-weight: 500; color: var(--mid); line-height: 1.5; margin-bottom: 5px; }
+    .exp-badge { display: inline-block; font-size: .65rem; font-weight: 600; color: var(--green); background: rgba(63,185,80,.12); border-radius: 999px; padding: 2px 9px; border: 1px solid rgba(63,185,80,.25); }
+    .exp-role { font-size: .95rem; font-weight: 600; color: var(--text); margin-bottom: 2px; line-height: 1.4; }
+    .exp-company { font-size: .82rem; font-weight: 500; color: var(--mid); margin-bottom: 10px; }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .exp-bullets li { font-size: .83rem; color: var(--mid); line-height: 1.7; padding-left: 14px; position: relative; }
+    .exp-bullets li::before { content: ''; position: absolute; left: 0; top: 9px; width: 5px; height: 5px; border-radius: 50%; background: var(--muted); }
+    .exp-bullets li strong { color: var(--text); font-weight: 600; }
+    @media(max-width: 560px) { .exp-entry { grid-template-columns: 1fr; gap: 6px; } }
+
+    /* ── SKILLS CARD WRAPPER ── */
+    .skills-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .skill-group { margin-bottom: 20px; }
+    .skill-group:last-of-type { margin-bottom: 0; }
+    .skill-group-name {
+      font-size: .62rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 10px;
+    }
+    .skill-rows { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 6px; }
+    .skill-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+      padding: 8px 10px; border-radius: 7px;
+      background: var(--bg2); border: 1px solid var(--border);
+      transition: border-color .15s;
+    }
+    .skill-row:hover { border-color: var(--border-h); }
+    .skill-left { display: flex; align-items: center; gap: 8px; }
+    .skill-emoji { font-size: .95rem; width: 20px; text-align: center; flex-shrink: 0; }
+    .skill-name { font-size: .8rem; font-weight: 500; color: var(--text); }
+    .skill-dots { display: flex; gap: 3px; flex-shrink: 0; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); }
+    .dot.on { background: var(--accent); }
+    .skill-legend { margin-top: 14px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; padding-top: 14px; border-top: 1px solid var(--border); }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: .68rem; color: var(--mid); }
+    .legend-dots { display: flex; gap: 3px; }
+
+    /* ── CREDENTIALS ── */
+    .cred-section-label { font-size: .62rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+    .cred-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; }
+    .cred-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px;
+      transition: border-color .2s, transform .2s;
+    }
+    .cred-card:hover { border-color: var(--border-h); transform: translateY(-2px); }
+    .cred-issuer { font-size: .62rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--mid); margin-bottom: 5px; }
+    .cred-name { font-size: .84rem; font-weight: 600; color: var(--text); line-height: 1.4; margin-bottom: 4px; }
+    .cred-date { font-size: .7rem; color: var(--mid); }
+    .cred-badge-in-progress { display: inline-block; font-size: .62rem; font-weight: 600; color: #F0AD4E; background: rgba(240,173,78,.12); border: 1px solid rgba(240,173,78,.25); border-radius: 999px; padding: 1px 8px; margin-left: 4px; }
+
+    /* ── PUBLICATIONS ── */
+    .pub-list { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+    .pub-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px;
+      transition: border-color .2s, transform .2s;
+    }
+    .pub-card:hover { border-color: var(--border-h); transform: translateY(-2px); }
+    .pub-venue { font-size: .62rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--mid); margin-bottom: 4px; }
+    .pub-title { font-size: .84rem; font-weight: 600; color: var(--text); line-height: 1.45; }
+
+    /* ── TWO COL ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    @media(max-width: 640px) { .two-col { grid-template-columns: 1fr; gap: 20px; } }
+
+    /* ── ACHIEVEMENT / AWARD ── */
+    .highlight-card {
+      display: flex; align-items: flex-start; gap: 12px;
+      background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px;
+      margin-bottom: 10px; transition: border-color .2s;
+    }
+    .highlight-card:last-child { margin-bottom: 0; }
+    .highlight-card:hover { border-color: var(--border-h); }
+    .highlight-ico { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+    .highlight-text { font-size: .86rem; color: var(--text); line-height: 1.6; font-weight: 500; }
+    .highlight-sub  { font-size: .73rem; color: var(--mid); margin-top: 2px; }
+
+    /* ── EDU ── */
+    .edu-list { display: flex; flex-direction: column; }
+    .edu-entry { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+    .edu-entry:first-child { padding-top: 0; }
+    .edu-entry:last-child  { border-bottom: none; padding-bottom: 0; }
+    .edu-degree { font-size: .88rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
+    .edu-school { font-size: .8rem; color: var(--mid); }
+    .edu-year   { font-size: .72rem; font-weight: 500; color: var(--mid); white-space: nowrap; flex-shrink: 0; padding-top: 3px; }
+
+    /* ── CONTACT ── */
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+    .contact-card {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px;
+      transition: border-color .2s;
+    }
+    .contact-card:hover { border-color: var(--border-h); }
+    .contact-ico { width: 34px; height: 34px; border-radius: 8px; background: var(--bg2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+    .contact-lbl { font-size: .68rem; font-weight: 500; color: var(--mid); margin-bottom: 1px; }
+    .contact-val { font-size: .82rem; font-weight: 600; color: var(--text); }
+
+    /* ── FOOTER ── */
+    footer { border-top: 1px solid var(--border); padding: 24px 0; font-size: .75rem; color: var(--mid); text-align: center; }
+    footer strong { color: var(--text); font-weight: 500; }
+
+    /* ── SUBSECTION GAP ── */
+    .sub-gap { margin-bottom: 28px; }
+
+    /* ── MAIN ── */
+    main { max-width: 860px; margin: 0 auto; padding: 20px 24px 60px; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Armaan Farshori</div>
+  <ul class="nav-links">
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#credentials">Credentials</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-avatar">
+      <img src="avatar.png" alt="Armaan Farshori"/>
+    </div>
+
+    <div>
+      <p class="hero-greeting">👋 Hi there!</p>
+      <h1 class="hero-name">Armaan Farshori</h1>
+      <p class="hero-title">Technical Product Manager · Cybersecurity &amp; Cloud Security</p>
+      <p class="hero-summary">
+        <strong>7+ years in cybersecurity</strong> and <strong>4+ years</strong> leading complex cloud security and compliance programmes. Primary client-facing bridge between technical teams (SOC, Detection &amp; Response, Engineering) and stakeholders — delivering audit-ready evidence and driving successful outcomes in highly regulated environments. Deep expertise in <strong>NIST-based frameworks</strong> (FedRAMP, FISMA, CMMC), ISO 27001, and SOC 2.
+      </p>
+      <p class="hero-loc">📍 Greater Noida West, Uttar Pradesh, India</p>
+      <div class="hero-tags">
+        <span class="hero-tag">FedRAMP / FISMA</span>
+        <span class="hero-tag">ISO 27001</span>
+        <span class="hero-tag">SOC 2</span>
+        <span class="hero-tag">Cloud Security</span>
+        <span class="hero-tag">Program Management</span>
+        <span class="hero-tag">Audit Readiness</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- TICKER -->
+<div class="ticker-outer">
+  <div class="ticker-inner">
+    <div class="t-item">
+      <div class="t-logo-wrap" style="background:#1a2535;border-color:#2d3f55;"><img src="https://fortreum.com/wp-content/uploads/2021/07/main-logo-site1-e1646930236131.png" alt="Fortreum" style="max-height:22px;max-width:70px;" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="t-logo-fallback" style="display:none;color:#fff;">Fortreum</span></div>
+      <div><div class="t-co">Fortreum</div><div class="t-role">Technical Program Manager</div></div>
+    </div>
+    <div class="t-item">
+      <div class="t-logo-wrap" style="background:#000;border-color:#222;"><img src="https://www2.deloitte.com/content/dam/assets-shared/logos/svg/a-d/deloitte.svg" alt="Deloitte" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="t-logo-fallback" style="display:none;color:#fff;">Deloitte</span></div>
+      <div><div class="t-co">Deloitte</div><div class="t-role">Deputy Manager – Cyber Defence</div></div>
+    </div>
+    <div class="t-item">
+      <div class="t-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/6/6d/Delhivery_logo.svg/250px-Delhivery_logo.svg.png" alt="Delhivery" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="t-logo-fallback" style="display:none">Delhivery</span></div>
+      <div><div class="t-co">Delhivery</div><div class="t-role">Program Manager, Cyber Security</div></div>
+    </div>
+    <div class="t-item">
+      <div class="t-logo-wrap"><img src="https://www.cdac.in/img/cdac-logo.png" alt="CDAC" style="max-height:28px;max-width:80px;width:80px;" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="t-logo-fallback" style="display:none">CDAC</span></div>
+      <div><div class="t-co">CDAC</div><div class="t-role">Project Engineer</div></div>
+    </div>
+    <div class="t-item">
+      <div class="t-logo-wrap" style="background:#2D1F69;border-color:#4C3A9E;"><span class="t-logo-fallback" style="color:#A78BFA;">PT</span></div>
+      <div><div class="t-co">Precise Technologies</div><div class="t-role">Lead Technical Consultant</div></div>
+    </div>
+    <!-- duplicate for seamless loop -->
+    <div class="t-item">
+      <div class="t-logo-wrap" style="background:#1a2535;border-color:#2d3f55;"><img src="https://fortreum.com/wp-content/uploads/2021/07/main-logo-site1-e1646930236131.png" alt="Fortreum" style="max-height:22px;max-width:70px;" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="t-logo-fallback" style="display:none;color:#fff;">Fortreum</span></div>
+      <div><div class="t-co">Fortreum</div><div class="t-role">Technical Program Manager</div></div>
+    </div>
+    <div class="t-item">
+      <div class="t-logo-wrap" style="background:#000;border-color:#222;"><img src="https://www2.deloitte.com/content/dam/assets-shared/logos/svg/a-d/deloitte.svg" alt="Deloitte" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="t-logo-fallback" style="display:none;color:#fff;">Deloitte</span></div>
+      <div><div class="t-co">Deloitte</div><div class="t-role">Deputy Manager – Cyber Defence</div></div>
+    </div>
+    <div class="t-item">
+      <div class="t-logo-wrap"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/6/6d/Delhivery_logo.svg/250px-Delhivery_logo.svg.png" alt="Delhivery" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="t-logo-fallback" style="display:none">Delhivery</span></div>
+      <div><div class="t-co">Delhivery</div><div class="t-role">Program Manager, Cyber Security</div></div>
+    </div>
+    <div class="t-item">
+      <div class="t-logo-wrap"><img src="https://www.cdac.in/img/cdac-logo.png" alt="CDAC" style="max-height:28px;max-width:80px;width:80px;" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/><span class="t-logo-fallback" style="display:none">CDAC</span></div>
+      <div><div class="t-co">CDAC</div><div class="t-role">Project Engineer</div></div>
+    </div>
+    <div class="t-item">
+      <div class="t-logo-wrap" style="background:#2D1F69;border-color:#4C3A9E;"><span class="t-logo-fallback" style="color:#A78BFA;">PT</span></div>
+      <div><div class="t-co">Precise Technologies</div><div class="t-role">Lead Technical Consultant</div></div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+  <!-- EXPERIENCE -->
+  <section class="reveal" id="experience">
+    <h2 class="sec-title">Experience</h2>
+    <div class="exp-list">
+
+      <div class="exp-entry">
+        <div class="exp-meta">
+          <div class="exp-dates">May 2026 –</div>
+          <div class="exp-badge">Current</div>
+        </div>
+        <div>
+          <div class="exp-role">Technical Program Manager</div>
+          <div class="exp-company">Fortreum</div>
+          <ul class="exp-bullets">
+            <li>Leading technical programme delivery in cybersecurity and cloud security domains across complex multi-stakeholder engagements.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-entry">
+        <div class="exp-meta">
+          <div class="exp-dates">Dec 2025 – Apr 2026</div>
+        </div>
+        <div>
+          <div class="exp-role">Deputy Manager – Cyber Defence and Resilience</div>
+          <div class="exp-company">Deloitte · Gurugram, Haryana, India</div>
+          <ul class="exp-bullets">
+            <li>Served as <strong>primary client interface</strong> across high-stakes cybersecurity engagements and audits — leading kickoffs, requirement validation, recurring status meetings, and closure processes.</li>
+            <li>Partnered with D&amp;R, SOC engineers, and SMEs to develop compliance narratives, evidence packages, and executive dashboards showcasing security posture and response metrics.</li>
+            <li>Built and maintained project plans, risk registers, RAID logs, and timelines in <strong>Jira / Azure DevOps</strong> while proactively managing scope, schedule, and dependencies.</li>
+            <li>Led risk assessments, audit documentation, and RFP responses in regulated environments.</li>
+            <li>Developed IaC and SOAR-based automation to accelerate incident response and generate audit evidence.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-entry">
+        <div class="exp-meta">
+          <div class="exp-dates">Sep 2021 – Nov 2025</div>
+        </div>
+        <div>
+          <div class="exp-role">Program Manager (Cyber Security)</div>
+          <div class="exp-company">Delhivery · Gurugram, Haryana, India</div>
+          <ul class="exp-bullets">
+            <li>Directed cross-functional cloud security programmes (AWS/GCP) as bridge between engineering, DevOps, AppSec, and compliance — managing full project lifecycle across multiple concurrent initiatives.</li>
+            <li>Built Jira/Azure DevOps dashboards for tracking programme health, reliability KPIs, risk scores, and audit readiness for executive reporting.</li>
+            <li>Mapped regulatory mandates (<strong>NIST 800-53, ISO 27001, SOC 2, GDPR, DPDP Act</strong>) into internal controls, incident response plans, and evidence collection processes.</li>
+            <li>Achieved <strong>95% critical vulnerability resolution</strong> within SLA through structured VAPT remediation workflows.</li>
+          </ul>
+          <div style="margin-top:14px;">
+            <div class="exp-role" style="font-size:.88rem;">Associate Program Manager (Cyber Security)</div>
+            <ul class="exp-bullets" style="margin-top:8px;">
+              <li>Led cloud security and AppSec programmes with focus on audit readiness and secure SDLC.</li>
+              <li>Reduced operational risks by <strong>40%</strong> through coordinated IAM, encryption, and threat management adoption.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-entry">
+        <div class="exp-meta">
+          <div class="exp-dates">Apr 2021 – Sep 2021</div>
+        </div>
+        <div>
+          <div class="exp-role">Project Engineer</div>
+          <div class="exp-company">CDAC · Delhi, India</div>
+          <ul class="exp-bullets">
+            <li>Managed cybersecurity delivery for <strong>Ministry of Defence</strong> projects — conducted risk assessments, implemented secure SDLC for OpenStack deployments, and maintained governance &amp; incident response documentation.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-entry">
+        <div class="exp-meta">
+          <div class="exp-dates">Jan 2021 – Apr 2021</div>
+        </div>
+        <div>
+          <div class="exp-role">Project Associate</div>
+          <div class="exp-company">CDAC · Chennai, Tamil Nadu, India</div>
+          <ul class="exp-bullets">
+            <li>Supported secure private cloud deployment and drafted cloud security policies with focus on risk registers and compliance processes.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-entry">
+        <div class="exp-meta">
+          <div class="exp-dates">May 2019 – Jan 2021</div>
+        </div>
+        <div>
+          <div class="exp-role">Lead Technical Consultant</div>
+          <div class="exp-company">Precise Technologies · Dubai, UAE</div>
+          <ul class="exp-bullets">
+            <li>Designed secure IT solutions, managed client relationships, prepared RFPs, and broke down large projects into detailed execution plans with clear timelines and deliverables.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="reveal" id="skills">
+    <h2 class="sec-title">Skills</h2>
+    <div class="skills-card">
+
+    <div class="skill-group">
+      <div class="skill-group-name">Project &amp; Product Management</div>
+      <div class="skill-rows">
+        <div class="skill-row">
+          <div class="skill-left"><span class="skill-emoji">📋</span><span class="skill-name">Jira &amp; Azure DevOps</span></div>
+          <div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-left"><span class="skill-emoji">🗂️</span><span class="skill-name">Project Planning &amp; RAID Logs</span></div>
+          <div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-left"><span class="skill-emoji">⚠️</span><span class="skill-name">Risk &amp; Issue Management</span></div>
+          <div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-left"><span class="skill-emoji">🤝</span><span class="skill-name">Stakeholder Management</span></div>
+          <div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-left"><span class="skill-emoji">📊</span><span class="skill-name">Executive Reporting &amp; Dashboards</span></div>
+          <div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-left"><span class="skill-emoji">👥</span><span class="skill-name">Resource Allocation &amp; Capacity Planning</span></div>
+          <div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-left"><span class="skill-emoji">🎤</span><span class="skill-name">Facilitation &amp; Presentations</span></div>
+          <div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-name">Cloud &amp; Cybersecurity</div>
+      <div class="skill-rows">
+        <div class="skill-row">
+          <div class="skill-left"><span class="skill-emoji">☁️</span><span class="skill-name">Cloud Security (AWS, GCP)</span></div>
+          <div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-left"><span class="skill-emoji">🛡️</span><span class="skill-name">Detection &amp; Response / SOC</span></div>
+          <div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-left"><span class="skill-emoji">🔍</span><span class="skill-name">Threat Hunting &amp; Incident Response</span></div>
+          <div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-left"><span class="skill-emoji">📡</span><span class="skill-name">SIEM / SOAR</span></div>
+          <div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-left"><span class="skill-emoji">🔐</span><span class="skill-name">VAPT &amp; Secure SDLC</span></div>
+          <div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-left"><span class="skill-emoji">📜</span><span class="skill-name">NIST Frameworks (FedRAMP, FISMA, CMMC)</span></div>
+          <div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-left"><span class="skill-emoji">✅</span><span class="skill-name">ISO 27001 &amp; SOC 2</span></div>
+          <div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-left"><span class="skill-emoji">🗄️</span><span class="skill-name">Compliance Narratives &amp; Audit Readiness</span></div>
+          <div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-left"><span class="skill-emoji">🔗</span><span class="skill-name">Third-Party Risk Management</span></div>
+          <div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-name">Tools &amp; Technologies</div>
+      <div class="skill-rows">
+        <div class="skill-row">
+          <div class="skill-left"><span class="skill-emoji">⚙️</span><span class="skill-name">Ansible (IaC)</span></div>
+          <div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-left"><span class="skill-emoji">🔵</span><span class="skill-name">Microsoft Sentinel</span></div>
+          <div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-left"><span class="skill-emoji">🐧</span><span class="skill-name">Linux</span></div>
+          <div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div>
+        </div>
+        <div class="skill-row">
+          <div class="skill-left"><span class="skill-emoji">🔥</span><span class="skill-name">Fortinet</span></div>
+          <div class="skill-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-legend">
+      <div class="legend-item">
+        <div class="legend-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div>
+        <span>Expert</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div>
+        <span>Advanced</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div>
+        <span>Proficient</span>
+      </div>
+    </div>
+    </div><!-- end skills-card -->
+  </section>
+
+  <!-- CREDENTIALS -->
+  <section class="reveal" id="credentials">
+    <h2 class="sec-title">Credentials</h2>
+    <div class="two-col">
+
+      <!-- LEFT: Education + Publications -->
+      <div>
+        <div class="sub-gap">
+          <p class="cred-section-label">Education</p>
+          <div class="edu-list">
+            <div class="edu-entry">
+              <div>
+                <div class="edu-degree">Master of Computer Applications (MCA)</div>
+                <div class="edu-school">Amity University, Noida</div>
+              </div>
+              <div class="edu-year">2016 – 2019</div>
+            </div>
+            <div class="edu-entry">
+              <div>
+                <div class="edu-degree">Bachelor of Computer Applications (BCA)</div>
+                <div class="edu-school">Kalinga University, Raipur</div>
+              </div>
+              <div class="edu-year">2013 – 2016</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p class="cred-section-label">Publications</p>
+          <div class="pub-list">
+            <div class="pub-card">
+              <div class="pub-venue">Springer</div>
+              <div class="pub-title">Server-Less Cloud Computing: An Economic Solution for Business Operations</div>
+            </div>
+            <div class="pub-card">
+              <div class="pub-venue">IEEE AICAI</div>
+              <div class="pub-title">Collaborative Medical Inventory Resources Using Edge Computing</div>
+            </div>
+            <div class="pub-card">
+              <div class="pub-venue">Medium</div>
+              <div class="pub-title">UN-Uefi UN-Legacy</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Certifications + Achievement + Award -->
+      <div>
+        <div class="sub-gap">
+          <p class="cred-section-label">Certifications</p>
+          <div class="cred-grid" style="grid-template-columns:1fr;">
+            <div class="cred-card">
+              <div class="cred-issuer">ISC²</div>
+              <div class="cred-name">Certified in Cybersecurity (CC)</div>
+              <div class="cred-date">2025 – 2028</div>
+            </div>
+            <div class="cred-card">
+              <div class="cred-issuer">ISC²</div>
+              <div class="cred-name">CISSP <span class="cred-badge-in-progress">In Progress</span></div>
+              <div class="cred-date">Expected 2026</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sub-gap">
+          <p class="cred-section-label">Achievement</p>
+          <div class="highlight-card">
+            <div class="highlight-ico">🏛️</div>
+            <div>
+              <div class="highlight-text">Cleared CDAC Scientist Level 'B' Exam</div>
+              <div class="highlight-sub">Ministry of Electronics and Information Technology · Government of India</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p class="cred-section-label">Award</p>
+          <div class="highlight-card">
+            <div class="highlight-ico">🏆</div>
+            <div>
+              <div class="highlight-text">Alden Global Top 50 Cybersecurity Professional in North India</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="reveal" id="contact">
+    <h2 class="sec-title">Contact</h2>
+    <div class="contact-grid" style="margin-bottom:28px;">
+      <a class="contact-card" href="https://www.linkedin.com/in/armaanfarshori" target="_blank" rel="noopener">
+        <div class="contact-ico">💼</div>
+        <div><div class="contact-lbl">LinkedIn</div><div class="contact-val">armaanfarshori</div></div>
+      </a>
+    </div>
+
+    <div style="padding-top:20px;border-top:1px solid var(--border);">
+      <p class="cred-section-label" style="margin-bottom:12px;">Languages</p>
+      <div style="display:flex;gap:24px;flex-wrap:wrap;">
+        <div><div style="font-size:.85rem;font-weight:500;color:var(--text);">English</div><div style="font-size:.72rem;color:var(--mid);">Native / Bilingual</div></div>
+        <div><div style="font-size:.85rem;font-weight:500;color:var(--text);">Hindi</div><div style="font-size:.72rem;color:var(--mid);">Native / Bilingual</div></div>
+        <div><div style="font-size:.85rem;font-weight:500;color:var(--text);">Arabic</div><div style="font-size:.72rem;color:var(--mid);">Limited Working Proficiency</div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2026 &nbsp;<strong>Armaan Farshori</strong>&nbsp; · Technical Product Manager · Cybersecurity &amp; Cloud Security
+  </footer>
+
+</main>
+
+<script>
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: .06 });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+</script>
+</body>
+</html>
