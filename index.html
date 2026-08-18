@@ -63,6 +63,17 @@
       border-radius: 4px;
     }
 
+    /* Scroll progress bar */
+    .progress {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 300;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), #4AE2AB);
+      transform-origin: 0 50%;
+      transform: scaleX(0);
+      box-shadow: 0 0 12px rgba(52,211,153,.55);
+      pointer-events: none;
+    }
+
     /* Skip link for keyboard users */
     .skip-link {
       position: absolute; left: 16px; top: -48px; z-index: 200;
@@ -145,11 +156,17 @@
     }
     .hero::before {
       content: '';
-      position: absolute; inset: 0;
+      position: absolute; inset: -60px;
       background:
         radial-gradient(ellipse 640px 420px at 78% -10%, rgba(52,211,153,0.10), transparent 65%),
         radial-gradient(ellipse 520px 380px at 8% 110%, rgba(56,130,246,0.07), transparent 65%);
       pointer-events: none;
+      animation: glow-drift 16s ease-in-out infinite alternate;
+    }
+    @keyframes glow-drift {
+      0%   { transform: translate(0, 0) scale(1); }
+      50%  { transform: translate(-26px, 18px) scale(1.04); }
+      100% { transform: translate(22px, -14px) scale(1); }
     }
     .hero::after {
       content: '';
@@ -162,7 +179,46 @@
       -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 20%, black 30%, transparent 75%);
       opacity: .35;
       pointer-events: none;
+      animation: grid-pan 24s linear infinite;
     }
+    @keyframes grid-pan {
+      from { background-position: 0 0, 0 0; }
+      to   { background-position: 56px 56px, 56px 56px; }
+    }
+
+    /* Hero entrance choreography */
+    @keyframes rise-in {
+      from { opacity: 0; transform: translateY(26px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes pop-in {
+      from { opacity: 0; transform: translateY(18px) scale(.94); }
+      to   { opacity: 1; transform: none; }
+    }
+    .fx {
+      opacity: 0;
+      animation: rise-in .75s cubic-bezier(.22,.68,.3,1) forwards;
+      animation-delay: var(--d, 0s);
+    }
+    .fx-pop {
+      opacity: 0;
+      animation: pop-in .8s cubic-bezier(.22,.68,.3,1) forwards;
+      animation-delay: var(--d, 0s);
+    }
+
+    /* Rotating headline word */
+    .rotator {
+      display: inline-flex; position: relative;
+      overflow: hidden; vertical-align: bottom;
+      transition: width .45s cubic-bezier(.6,.1,.2,1);
+    }
+    .rotator .word {
+      display: inline-block; white-space: nowrap;
+    }
+    .rotator .word.out { animation: word-out .4s ease forwards; }
+    .rotator .word.in  { animation: word-in  .4s ease forwards; }
+    @keyframes word-out { to { opacity: 0; transform: translateY(-100%); } }
+    @keyframes word-in  { from { opacity: 0; transform: translateY(100%); } to { opacity: 1; transform: none; } }
     .hero-grid {
       position: relative;
       display: grid; grid-template-columns: 1fr auto;
@@ -219,6 +275,8 @@
       transition: transform .15s, background .15s, border-color .15s, box-shadow .15s;
     }
     .btn:active { transform: scale(.98); }
+    .btn .arrow { display: inline-block; transition: transform .25s cubic-bezier(.34,1.56,.64,1); }
+    .btn:hover .arrow { transform: translateX(4px); }
     .btn-primary {
       background: var(--accent); color: #04110B;
       box-shadow: 0 4px 24px rgba(52,211,153,0.25);
@@ -258,6 +316,10 @@
       background-size: 12px 12px;
       opacity: .5;
     }
+    .hero-portrait img {
+      transition: transform .5s cubic-bezier(.22,.68,.3,1);
+    }
+    .hero-portrait:hover img { transform: translateY(-5px) rotate(-1.2deg); }
     .portrait-chip {
       position: absolute; z-index: 2;
       left: -22px; bottom: 26px;
@@ -267,6 +329,11 @@
       border-radius: 11px; padding: 9px 14px;
       font-size: .76rem; font-weight: 600;
       box-shadow: 0 10px 30px rgba(0,0,0,.45);
+      animation: chip-float 4.5s ease-in-out infinite;
+    }
+    @keyframes chip-float {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-7px); }
     }
     .portrait-chip .ico {
       color: var(--accent); font-size: .95rem; line-height: 1;
@@ -315,18 +382,35 @@
       padding: 26px 0;
       margin-top: 72px;
     }
-    .orgs-inner { display: flex; align-items: center; gap: 14px 40px; flex-wrap: wrap; justify-content: center; }
     .orgs-lbl {
       font-family: var(--font-mono); font-size: .68rem; letter-spacing: .12em;
       text-transform: uppercase; color: var(--faint); white-space: nowrap;
+      text-align: center; margin-bottom: 16px;
     }
+    .marquee {
+      position: relative; overflow: hidden;
+      mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, black 12%, black 88%, transparent);
+    }
+    .marquee-track {
+      display: flex; align-items: center; width: max-content;
+      animation: marquee 28s linear infinite;
+    }
+    .marquee:hover .marquee-track { animation-play-state: paused; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     .org {
-      font-size: 1.02rem; font-weight: 700; letter-spacing: -.01em;
+      display: flex; align-items: center; gap: 40px;
+      padding: 0 20px;
+      font-size: 1.05rem; font-weight: 700; letter-spacing: -.01em;
       color: var(--faint);
       transition: color .2s;
       white-space: nowrap;
     }
-    .org:hover { color: var(--mid); }
+    .org::after {
+      content: ''; width: 5px; height: 5px; border-radius: 50%;
+      background: var(--accent); opacity: .45; flex-shrink: 0;
+    }
+    .org:hover { color: var(--text); }
 
     /* ───────────────────────── Sections ───────────────────────── */
     .section { padding: 88px 0 0; }
@@ -355,7 +439,10 @@
       position: absolute; left: 7px; top: 8px; bottom: 8px;
       width: 1px;
       background: linear-gradient(180deg, var(--accent-brd), var(--line) 30%);
+      transform: scaleY(0); transform-origin: top;
+      transition: transform 1.4s cubic-bezier(.3,.6,.2,1);
     }
+    .timeline.drawn::before { transform: scaleY(1); }
     .job { position: relative; padding-bottom: 44px; }
     .job:last-child { padding-bottom: 0; }
     .job::before {
@@ -364,10 +451,21 @@
       width: 11px; height: 11px; border-radius: 50%;
       background: var(--bg); border: 2px solid var(--faint);
     }
+    .job::before {
+      transform: scale(0);
+      transition: transform .45s cubic-bezier(.34,1.56,.64,1) .3s;
+    }
+    .job.in::before { transform: scale(1); }
     .job.current::before {
       border-color: var(--accent);
       background: var(--accent);
       box-shadow: 0 0 0 4px var(--accent-dim);
+      animation: dot-pulse 2.6s ease-out infinite;
+    }
+    @keyframes dot-pulse {
+      0%   { box-shadow: 0 0 0 4px var(--accent-dim), 0 0 0 0 rgba(52,211,153,.4); }
+      70%  { box-shadow: 0 0 0 4px var(--accent-dim), 0 0 0 12px rgba(52,211,153,0); }
+      100% { box-shadow: 0 0 0 4px var(--accent-dim), 0 0 0 0 rgba(52,211,153,0); }
     }
     .job-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin-bottom: 2px; }
     .job-role { font-size: 1.06rem; font-weight: 700; letter-spacing: -.01em; }
@@ -408,13 +506,36 @@
     .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
     @media (max-width: 880px) { .skills-grid { grid-template-columns: 1fr; } }
     .skill-card {
+      position: relative; overflow: hidden;
       background: linear-gradient(180deg, var(--surface), var(--bg-raise));
       border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 26px;
-      transition: border-color .25s, transform .25s;
+      transition: border-color .25s, transform .25s, box-shadow .25s;
     }
-    .skill-card:hover { border-color: var(--line-h); transform: translateY(-3px); }
+    .skill-card:hover {
+      border-color: var(--accent-brd); transform: translateY(-4px);
+      box-shadow: 0 14px 40px rgba(0,0,0,.35);
+    }
+    .skill-card::after {
+      content: '';
+      position: absolute; top: 0; bottom: 0; left: -80%;
+      width: 50%;
+      background: linear-gradient(105deg, transparent, rgba(232,238,245,.045), transparent);
+      transform: skewX(-18deg);
+      transition: left .7s ease;
+      pointer-events: none;
+    }
+    .skill-card:hover::after { left: 130%; }
+    .skill-card:hover .skill-ico { transform: translateY(-3px) rotate(-6deg); }
+    .skill-ico { transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
+    /* Chip cascade on reveal */
+    .reveal .chip { opacity: 0; transform: translateY(8px); }
+    .reveal.in .chip {
+      opacity: 1; transform: none;
+      transition: opacity .45s ease var(--cd, 0s), transform .45s ease var(--cd, 0s),
+                  color .15s, border-color .15s;
+    }
     .skill-ico {
       width: 42px; height: 42px; border-radius: 11px;
       background: var(--accent-dim); border: 1px solid var(--accent-brd);
@@ -449,7 +570,9 @@
       border: 1px solid var(--line);
       border-radius: var(--radius);
       padding: 26px;
+      transition: border-color .25s, transform .25s;
     }
+    .panel:hover { border-color: var(--line-h); transform: translateY(-3px); }
     .panel-lbl {
       font-family: var(--font-mono); font-size: .68rem; font-weight: 500;
       letter-spacing: .14em; text-transform: uppercase;
@@ -519,6 +642,11 @@
       position: absolute; inset: 0;
       background: radial-gradient(ellipse 480px 280px at 50% -30%, rgba(52,211,153,0.12), transparent 70%);
       pointer-events: none;
+      animation: band-breathe 6s ease-in-out infinite;
+    }
+    @keyframes band-breathe {
+      0%, 100% { opacity: .7; }
+      50%      { opacity: 1; }
     }
     .contact-band h2 {
       font-size: clamp(1.5rem, 3.4vw, 2.1rem);
@@ -552,14 +680,20 @@
     /* ───────────────────────── Motion preferences ───────────────────────── */
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .reveal { opacity: 1; transform: none; transition: none; }
-      .eyebrow .pulse { animation: none; }
+      .reveal, .reveal .chip { opacity: 1; transform: none; transition: none; }
+      .fx, .fx-pop { animation: none; opacity: 1; }
+      .timeline::before { transform: scaleY(1); transition: none; }
+      .job::before { transform: scale(1); transition: none; }
+      .marquee-track { animation: none; flex-wrap: wrap; justify-content: center; width: 100%; }
+      .eyebrow .pulse, .portrait-chip, .contact-band::before,
+      .hero::before, .hero::after, .job.current::before { animation: none; }
       *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
     }
   </style>
 </head>
 <body>
 
+<div class="progress" id="progress" aria-hidden="true"></div>
 <a class="skip-link" href="#main">Skip to content</a>
 
 <!-- ───────────── Header ───────────── -->
@@ -586,25 +720,25 @@
     <div class="wrap">
       <div class="hero-grid">
         <div>
-          <span class="eyebrow"><span class="pulse" aria-hidden="true"></span>Open to new engagements</span>
-          <h1>Securing the cloud,<br/>delivering the <span class="accent">programme</span>.</h1>
-          <p class="hero-role">Technical Program Manager · <strong>Cybersecurity &amp; Cloud Security</strong></p>
-          <p class="hero-pitch">
+          <span class="eyebrow fx" style="--d:.05s"><span class="pulse" aria-hidden="true"></span>Open to new engagements</span>
+          <h1 class="fx" style="--d:.14s">Securing the cloud,<br/>delivering the <span style="white-space:nowrap;"><span class="accent rotator" id="rotator"><span class="word">programme</span></span>.</span></h1>
+          <p class="hero-role fx" style="--d:.24s">Technical Program Manager · <strong>Cybersecurity &amp; Cloud Security</strong></p>
+          <p class="hero-pitch fx" style="--d:.32s">
             I'm the client-facing bridge between technical teams — SOC, Detection &amp; Response, Engineering —
             and the stakeholders who need outcomes. <strong>7+ years in cybersecurity</strong>, leading complex
             cloud security and compliance programmes across <strong>FedRAMP, FISMA, CMMC, ISO&nbsp;27001 and SOC&nbsp;2</strong>,
             delivering audit-ready evidence in highly regulated environments.
           </p>
-          <div class="hero-actions">
+          <div class="hero-actions fx" style="--d:.42s">
             <a class="btn btn-primary" href="https://www.linkedin.com/in/armaanfarshori" target="_blank" rel="noopener">
-              Connect on LinkedIn <span aria-hidden="true">→</span>
+              Connect on LinkedIn <span class="arrow" aria-hidden="true">→</span>
             </a>
             <a class="btn btn-ghost" href="#experience">View experience</a>
           </div>
-          <span class="hero-loc">📍 Greater Noida West, Uttar Pradesh, India</span>
+          <span class="hero-loc fx" style="--d:.52s">📍 Greater Noida West, Uttar Pradesh, India</span>
         </div>
 
-        <div class="hero-portrait">
+        <div class="hero-portrait fx-pop" style="--d:.3s">
           <img src="/Armaan.jpeg" alt="Portrait of Armaan Farshori" width="252" height="252"/>
           <div class="portrait-chip">
             <span class="ico" aria-hidden="true">✓</span> ISC² Certified
@@ -615,19 +749,19 @@
       <!-- Stats -->
       <div class="stats reveal" role="list" aria-label="Career highlights">
         <div class="stat" role="listitem">
-          <div class="stat-num">7<em>+</em></div>
+          <div class="stat-num"><span class="count" data-target="7">0</span><em>+</em></div>
           <div class="stat-lbl">Years in cybersecurity</div>
         </div>
         <div class="stat" role="listitem">
-          <div class="stat-num">4<em>+</em></div>
+          <div class="stat-num"><span class="count" data-target="4">0</span><em>+</em></div>
           <div class="stat-lbl">Years leading security programmes</div>
         </div>
         <div class="stat" role="listitem">
-          <div class="stat-num">95<em>%</em></div>
+          <div class="stat-num"><span class="count" data-target="95">0</span><em>%</em></div>
           <div class="stat-lbl">Critical vulnerabilities resolved within SLA</div>
         </div>
         <div class="stat" role="listitem">
-          <div class="stat-num">40<em>%</em></div>
+          <div class="stat-num"><span class="count" data-target="40">0</span><em>%</em></div>
           <div class="stat-lbl">Reduction in operational risk delivered</div>
         </div>
       </div>
@@ -636,13 +770,20 @@
 
   <!-- ───────────── Organisations ───────────── -->
   <div class="orgs" aria-label="Organisations worked with">
-    <div class="wrap orgs-inner">
-      <span class="orgs-lbl">Trusted by teams at</span>
-      <span class="org">Fortreum</span>
-      <span class="org">Deloitte</span>
-      <span class="org">Delhivery</span>
-      <span class="org">CDAC</span>
-      <span class="org">Precise Technologies</span>
+    <p class="orgs-lbl">Trusted by teams at</p>
+    <div class="marquee">
+      <div class="marquee-track">
+        <span class="org">Fortreum</span>
+        <span class="org">Deloitte</span>
+        <span class="org">Delhivery</span>
+        <span class="org">CDAC</span>
+        <span class="org">Precise Technologies</span>
+        <span class="org" aria-hidden="true">Fortreum</span>
+        <span class="org" aria-hidden="true">Deloitte</span>
+        <span class="org" aria-hidden="true">Delhivery</span>
+        <span class="org" aria-hidden="true">CDAC</span>
+        <span class="org" aria-hidden="true">Precise Technologies</span>
+      </div>
     </div>
   </div>
 
@@ -913,13 +1054,105 @@
 </footer>
 
 <script>
-  // Scroll-reveal
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Scroll-reveal with per-batch stagger
   const io = new IntersectionObserver((entries) => {
-    entries.forEach((e) => {
-      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    entries.forEach((e, i) => {
+      if (!e.isIntersecting) return;
+      e.target.style.transitionDelay = (i * 90) + 'ms';
+      e.target.classList.add('in');
+      io.unobserve(e.target);
     });
   }, { threshold: 0.08 });
-  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+  document.querySelectorAll('.reveal, .job').forEach((el) => io.observe(el));
+
+  // Chip cascade delays
+  document.querySelectorAll('.reveal .chips').forEach((group) => {
+    group.querySelectorAll('.chip').forEach((chip, i) => {
+      chip.style.setProperty('--cd', (0.15 + i * 0.05) + 's');
+    });
+  });
+
+  // Timeline line draw-in
+  const tl = document.querySelector('.timeline');
+  if (tl) {
+    new IntersectionObserver((entries, obs) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { tl.classList.add('drawn'); obs.disconnect(); }
+      });
+    }, { threshold: 0.05 }).observe(tl);
+  }
+
+  // Stat count-up
+  const easeOut = (t) => 1 - Math.pow(1 - t, 3);
+  const animateCount = (el) => {
+    const target = +el.dataset.target;
+    if (reduceMotion) { el.textContent = target; return; }
+    const dur = 1400;
+    let start;
+    const step = (ts) => {
+      if (start === undefined) start = ts;
+      const p = Math.min((ts - start) / dur, 1);
+      el.textContent = Math.round(easeOut(p) * target);
+      if (p < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  const statObs = new IntersectionObserver((entries, obs) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) { animateCount(e.target); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.count').forEach((el) => statObs.observe(el));
+
+  // Rotating headline word
+  const ROTATOR_WORDS = ['programme', 'evidence', 'roadmap', 'audit'];
+  const rotator = document.getElementById('rotator');
+  if (rotator && !reduceMotion) {
+    let idx = 0;
+    const sizeToCurrent = () => {
+      rotator.style.width = rotator.querySelector('.word').getBoundingClientRect().width + 'px';
+    };
+    sizeToCurrent();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(sizeToCurrent);
+    setInterval(() => {
+      const current = rotator.querySelector('.word');
+      idx = (idx + 1) % ROTATOR_WORDS.length;
+      const next = document.createElement('span');
+      next.className = 'word in';
+      next.textContent = ROTATOR_WORDS[idx];
+      next.style.position = 'absolute';
+      next.style.left = '0';
+      rotator.appendChild(next);
+      current.classList.add('out');
+      // Measure the incoming word off-layout, then animate the container width
+      const probe = next.cloneNode(true);
+      probe.style.cssText = 'position:absolute;visibility:hidden;left:-9999px;';
+      rotator.appendChild(probe);
+      rotator.style.width = probe.getBoundingClientRect().width + 'px';
+      probe.remove();
+      setTimeout(() => {
+        current.remove();
+        next.style.position = '';
+        next.style.left = '';
+        next.classList.remove('in');
+      }, 450);
+    }, 2600);
+  }
+
+  // Scroll progress bar
+  const progress = document.getElementById('progress');
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.transform = 'scaleX(' + (max > 0 ? window.scrollY / max : 0) + ')';
+      ticking = false;
+    });
+  }, { passive: true });
 
   // Mobile menu
   const btn = document.getElementById('menuBtn');
