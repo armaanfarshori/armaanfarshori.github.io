@@ -279,6 +279,11 @@
       border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
       background: var(--bg-2); padding: 22px 0;
     }
+    .band-lbl {
+      font-family: var(--mono); font-size: 11px; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--faint);
+      text-align: center; margin-bottom: 16px;
+    }
     .marquee {
       display: flex; overflow: hidden;
       max-width: min(880px, 92vw); margin: 0 auto;
@@ -575,17 +580,18 @@
       </h1>
       <p class="hero-sub">
         Building <strong>Cyvire</strong>, a hiring platform made only for cybersecurity.
-        Seven years running security programmes that pass audits.
+        Seven years of passing audits, closing findings, and apologising for other people's passwords.
       </p>
       <div class="hero-cta">
         <a class="btn btn-solid" href="#cyvire" data-magnetic>What I'm building <span class="arr">↓</span></a>
-        <a class="btn btn-ghost" href="#record">Track record</a>
+        <a class="btn btn-ghost" href="#record">Run a background check</a>
       </div>
     </div>
   </section>
 
   <!-- marquee -->
   <div class="band" aria-label="Organisations">
+    <p class="band-lbl">Organisations that let me touch production</p>
     <div class="marquee">
       <div class="m-group">
         <span class="m-item">Fortreum</span><span class="m-item">Deloitte</span><span class="m-item">Delhivery</span><span class="m-item">CDAC</span><span class="m-item">Precise Technologies</span><span class="m-item">Cyvire</span>
@@ -599,16 +605,16 @@
   <!-- cyvire -->
   <section class="wrap" id="cyvire">
     <h2 class="sec-title r-clip">Now building: Cyvire.</h2>
-    <p class="sec-lede r-rise">Security hiring is broken in both directions. Recruiters can't read the work, and practitioners get filtered by keyword. Cyvire fixes the pipe itself.</p>
+    <p class="sec-lede r-rise">Recruiters think SOC 2 is a boy band. Great analysts get rejected for missing the keyword 'cyber'. Cyvire ends this.</p>
 
     <div class="cyvire-grid">
       <div class="cy-copy r-rise">
         <p>Cyvire is a <strong>cybersecurity-only hiring platform</strong>. No adjacent roles, no keyword bingo. It treats security work as evidence: what you ran, what you shipped, what passed audit.</p>
         <p>I'm building it from the operator's side of the table, after seven years of hiring into and running SOC, compliance and cloud security teams.</p>
         <ul class="cy-points">
-          <li><span class="n">01</span><span><strong>Security-literate matching.</strong> Roles and people described in the language of the field, not HR taxonomy.</span></li>
-          <li><span class="n">02</span><span><strong>Evidence over keywords.</strong> Programmes delivered, frameworks passed, incidents handled.</span></li>
-          <li><span class="n">03</span><span><strong>Built by an operator.</strong> Designed around how security teams actually assess each other.</span></li>
+          <li><span class="n">01</span><span><strong>Security-literate matching.</strong> Knows the difference between SOC the team and SOC the audit.</span></li>
+          <li><span class="n">02</span><span><strong>Evidence over keywords.</strong> What you ran, shipped and survived. Zero points for the word 'synergy'.</span></li>
+          <li><span class="n">03</span><span><strong>Built by an operator.</strong> By someone who has read a few thousand security resumes and recovered from most of them.</span></li>
         </ul>
       </div>
 
@@ -617,7 +623,7 @@
           <div class="cy-glow" aria-hidden="true"></div>
           <div class="cy-scan" aria-hidden="true"></div>
           <div class="cy-mark">CYV<i>IRE</i></div>
-          <div class="cy-tag">Hiring, for security only</div>
+          <div class="cy-tag">Hiring. For security people. That's it. That's the product.</div>
           <dl class="cy-rows">
             <div><dt>Focus</dt><dd>Cybersecurity roles</dd></div>
             <div><dt>Model</dt><dd>Evidence-based matching</dd></div>
@@ -632,14 +638,14 @@
 
   <!-- record -->
   <section class="wrap" id="record">
-    <h2 class="sec-title r-clip">The track record.</h2>
-    <p class="sec-lede r-rise">Consulting, product companies and government. Programmes that had to survive auditors, regulators and real incidents.</p>
+    <h2 class="sec-title r-clip">The incident history.</h2>
+    <p class="sec-lede r-rise">Consulting, product companies and government. All engagements closed. No findings open.</p>
 
     <div class="stats r-rise" role="list" aria-label="Career numbers">
-      <div class="stat" role="listitem"><div class="stat-n"><span data-count="7">0</span><em>+</em></div><div class="stat-l">Years in cybersecurity</div></div>
-      <div class="stat" role="listitem"><div class="stat-n"><span data-count="4">0</span><em>+</em></div><div class="stat-l">Years leading security programmes</div></div>
-      <div class="stat" role="listitem"><div class="stat-n"><span data-count="95">0</span><em>%</em></div><div class="stat-l">Critical vulnerabilities closed within SLA</div></div>
-      <div class="stat" role="listitem"><div class="stat-n"><span data-count="40">0</span><em>%</em></div><div class="stat-l">Reduction in operational risk delivered</div></div>
+      <div class="stat" role="listitem"><div class="stat-n"><span data-count="7">0</span><em>+</em></div><div class="stat-l">Years of professional paranoia</div></div>
+      <div class="stat" role="listitem"><div class="stat-n"><span data-count="4">0</span><em>+</em></div><div class="stat-l">Years herding auditors and engineers</div></div>
+      <div class="stat" role="listitem"><div class="stat-n"><span data-count="95">0</span><em>%</em></div><div class="stat-l">Criticals closed before the SLA could complain</div></div>
+      <div class="stat" role="listitem"><div class="stat-n"><span data-count="40">0</span><em>%</em></div><div class="stat-l">Risk reduced, sleep partially recovered</div></div>
     </div>
 
     <div class="spine">
@@ -647,7 +653,7 @@
         <div class="role-head"><h3 class="role-title">Technical Program Manager</h3><span class="role-org">at <b>Fortreum</b></span></div>
         <p class="role-dates">MAY 2026 · PRESENT</p>
         <ul class="role-notes">
-          <li>Technical programme delivery across cybersecurity and cloud security engagements with multiple stakeholders.</li>
+          <li>Technical programme delivery across cybersecurity and cloud security engagements. Stakeholders: many. Panic: contained.</li>
         </ul>
       </article>
 
@@ -655,9 +661,9 @@
         <div class="role-head"><h3 class="role-title">Deputy Manager, Cyber Defence &amp; Resilience</h3><span class="role-org">at <b>Deloitte</b> · Gurugram</span></div>
         <p class="role-dates">DEC 2025 · APR 2026</p>
         <ul class="role-notes">
-          <li>Primary client interface on high-stakes engagements: kickoffs, requirement validation, status cadence, closure.</li>
-          <li>Compliance narratives, evidence packages and executive dashboards built with D&amp;R, SOC engineers and SMEs.</li>
-          <li>IaC and SOAR automation to speed up incident response and generate audit evidence.</li>
+          <li>Primary client interface on high-stakes engagements. Translated 'the auditor is coming' into project plans instead of panic.</li>
+          <li>Built compliance narratives and evidence packages so airtight the auditors got bored.</li>
+          <li>Automated incident response with IaC and SOAR, because copy-pasting logs at 2am builds character, not evidence.</li>
         </ul>
       </article>
 
@@ -665,9 +671,9 @@
         <div class="role-head"><h3 class="role-title">Program Manager, Cyber Security</h3><span class="role-org">at <b>Delhivery</b> · Gurugram</span></div>
         <p class="role-dates">SEP 2021 · NOV 2025</p>
         <ul class="role-notes">
-          <li>Directed cloud security programmes on <strong>AWS and GCP</strong> as the bridge between engineering, DevOps, AppSec and compliance.</li>
-          <li>Mapped <strong>NIST 800-53, ISO 27001, SOC 2, GDPR and the DPDP Act</strong> into controls, response plans and evidence pipelines.</li>
-          <li><strong>95% of critical vulnerabilities</strong> closed within SLA; operational risk down <strong>40%</strong> through IAM, encryption and threat-management adoption.</li>
+          <li>Directed cloud security programmes on <strong>AWS and GCP</strong>, bridging engineering, DevOps, AppSec and compliance. Yes, all four have opinions.</li>
+          <li>Mapped <strong>NIST 800-53, ISO 27001, SOC 2, GDPR and the DPDP Act</strong> into work actual humans could do.</li>
+          <li>Closed <strong>95% of critical vulnerabilities</strong> inside SLA. The other 5% required meetings. Risk down <strong>40%</strong>, and the spreadsheet was glorious.</li>
         </ul>
       </article>
 
@@ -675,7 +681,7 @@
         <div class="role-head"><h3 class="role-title">Project Engineer</h3><span class="role-org">at <b>CDAC</b> · Delhi</span></div>
         <p class="role-dates">APR 2021 · SEP 2021</p>
         <ul class="role-notes">
-          <li>Cybersecurity delivery for <strong>Ministry of Defence</strong> projects: risk assessments, secure SDLC for OpenStack, governance and incident documentation.</li>
+          <li>Ran cybersecurity delivery for <strong>Ministry of Defence</strong> projects. Cannot elaborate. That is the point.</li>
         </ul>
       </article>
 
@@ -683,7 +689,7 @@
         <div class="role-head"><h3 class="role-title">Project Associate</h3><span class="role-org">at <b>CDAC</b> · Chennai</span></div>
         <p class="role-dates">JAN 2021 · APR 2021</p>
         <ul class="role-notes">
-          <li>Secure private-cloud deployment and cloud security policy, with risk registers and compliance processes.</li>
+          <li>Deployed a secure private cloud, wrote the policies for it, then actually followed them. Revolutionary.</li>
         </ul>
       </article>
 
@@ -691,16 +697,16 @@
         <div class="role-head"><h3 class="role-title">Lead Technical Consultant</h3><span class="role-org">at <b>Precise Technologies</b> · Dubai</span></div>
         <p class="role-dates">MAY 2019 · JAN 2021</p>
         <ul class="role-notes">
-          <li>Secure IT solutions, client relationships, RFPs, and execution plans with clear timelines and deliverables.</li>
+          <li>Designed secure IT solutions and wrote RFPs across client timezones. Learned that 'urgent' means something different in every one of them.</li>
         </ul>
       </article>
     </div>
 
     <div class="creds r-fade">
       <div class="cred"><div class="cred-t">ISC² Certified in Cybersecurity</div><div class="cred-s">CERT · <i>2025 to 2028</i></div></div>
-      <div class="cred"><div class="cred-t">ISC² CISSP, in progress</div><div class="cred-s">CERT · <i>expected 2026</i></div></div>
-      <div class="cred"><div class="cred-t">CDAC Scientist Level B, cleared</div><div class="cred-s">MEITY · GOVT OF INDIA</div></div>
-      <div class="cred"><div class="cred-t">Top 50 Cybersecurity Professional, North India</div><div class="cred-s">ALDEN GLOBAL</div></div>
+      <div class="cred"><div class="cred-t">ISC² CISSP, in progress</div><div class="cred-s">CERT · <i>the flashcards are winning</i></div></div>
+      <div class="cred"><div class="cred-t">CDAC Scientist Level B, cleared</div><div class="cred-s">MEITY · government-grade paperwork survivor</div></div>
+      <div class="cred"><div class="cred-t">Top 50 Cybersecurity Professional, North India</div><div class="cred-s">ALDEN GLOBAL · apparently they counted</div></div>
       <div class="cred"><div class="cred-t">MCA, Amity University</div><div class="cred-s">2016 to 2019</div></div>
       <div class="cred"><div class="cred-t">BCA, Kalinga University</div><div class="cred-s">2013 to 2016</div></div>
     </div>
@@ -709,12 +715,12 @@
   <!-- expertise -->
   <section class="wrap" id="expertise">
     <h2 class="sec-title r-clip">What I actually do.</h2>
-    <p class="sec-lede r-rise">Translate regulation into controls, controls into work, and work into evidence auditors accept.</p>
+    <p class="sec-lede r-rise">Regulation into controls, controls into Jira tickets, tickets into evidence. Someone has to.</p>
 
     <div class="bento">
       <div class="cell cell-a" style="--i:0">
         <h3>Security &amp; compliance</h3>
-        <p>NIST-based frameworks and commercial attestations, from gap analysis to evidence package.</p>
+        <p>Frameworks passed, not just name-dropped.</p>
         <div class="chips">
           <span class="chip hot">FedRAMP / FISMA / CMMC</span>
           <span class="chip hot">ISO 27001 &amp; SOC 2</span>
@@ -729,7 +735,7 @@
       </div>
       <div class="cell cell-b" style="--i:1">
         <h3>Programme leadership</h3>
-        <p>Multi-workstream delivery from kickoff to audit closure.</p>
+        <p>Kickoff to closure without a single 'per my last email'.</p>
         <div class="chips">
           <span class="chip hot">Stakeholder management</span>
           <span class="chip">Jira &amp; Azure DevOps</span>
@@ -740,7 +746,7 @@
       </div>
       <div class="cell cell-c" style="--i:2">
         <h3>Hands-on tooling</h3>
-        <p>Close enough to the metal to build the automation that makes the evidence.</p>
+        <p>Close enough to the terminal to break production, senior enough to have a change ticket for it.</p>
         <div class="chips">
           <span class="chip hot">Microsoft Sentinel</span>
           <span class="chip">SIEM / SOAR</span>
@@ -754,7 +760,7 @@
 
   <!-- writing -->
   <section class="wrap" id="writing">
-    <h2 class="sec-title r-clip">Writing.</h2>
+    <h2 class="sec-title r-clip">Published, peer-reviewed, occasionally read.</h2>
     <div class="rows r-rise">
       <a class="row" href="https://link.springer.com/chapter/10.1007/978-981-15-2043-3_18" target="_blank" rel="noopener">
         <span class="row-venue">Springer</span>
@@ -778,9 +784,9 @@
   <section class="wrap" id="contact">
     <div class="contact-inner">
       <h2 class="contact-big r-clip">Let's <i>talk</i>.</h2>
-      <p class="contact-p r-rise">Security hiring, FedRAMP advisory, or a programme that needs an owner. I read everything.</p>
+      <p class="contact-p r-rise">Security hiring, FedRAMP advisory, or a programme that needs an owner. Responsibly disclose your ideas. I read everything, even the phishing.</p>
       <div class="r-rise">
-        <a class="btn btn-solid" href="https://www.linkedin.com/in/armaanfarshori" target="_blank" rel="noopener" data-magnetic>Message me <span class="arr">→</span></a>
+        <a class="btn btn-solid" href="https://www.linkedin.com/in/armaanfarshori" target="_blank" rel="noopener" data-magnetic>Open a ticket <span class="arr">→</span></a>
       </div>
       <div class="contact-meta r-fade">
         <span class="cm">BASE · <b>Greater Noida, India</b></span>
@@ -795,7 +801,8 @@
 <footer>
   <div class="wrap foot">
     <span>© 2026 <b>Armaan Farshori</b> · Founder, Cyvire</span>
-    <span>Built by hand. Motion respects your settings.</span>
+    <span>This site collects nothing. Not even cookies. Especially not cookies.</span>
+    <span>Built by hand. No vulnerabilities were knowingly shipped.</span>
   </div>
 </footer>
 
