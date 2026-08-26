@@ -3,15 +3,66 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Armaan Farshori</title>
-  <meta name="description" content="Armaan Farshori. Founder of Cyvire, a hiring platform built only for cybersecurity. Seven years running security programmes across FedRAMP, ISO 27001 and SOC 2."/>
+  <title>Armaan Farshori · Founder of Cyvire · Cybersecurity Program Leader</title>
+  <meta name="description" content="Armaan Farshori is the founder of Cyvire, a cybersecurity-only hiring platform, and a technical program manager with seven years across FedRAMP, FISMA, CMMC, ISO 27001 and SOC 2. Based in Greater Noida, India."/>
   <meta name="author" content="Armaan Farshori"/>
-  <meta property="og:type" content="website"/>
-  <meta property="og:title" content="Armaan Farshori"/>
-  <meta property="og:description" content="Founder of Cyvire. Security program operator. Seven years shipping programmes that pass audits."/>
+  <meta name="robots" content="index, follow, max-image-preview:large"/>
+  <meta property="og:type" content="profile"/>
+  <meta property="og:site_name" content="Armaan Farshori"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:title" content="Armaan Farshori · Founder of Cyvire · Cybersecurity Program Leader"/>
+  <meta property="og:description" content="Founder of Cyvire, a cybersecurity-only hiring platform. Seven years shipping security programmes that pass audits: FedRAMP, FISMA, CMMC, ISO 27001, SOC 2."/>
   <meta property="og:image" content="https://armaanfarshori.github.io/Armaan.jpeg"/>
   <meta property="og:url" content="https://armaanfarshori.github.io/"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Armaan Farshori · Founder of Cyvire"/>
+  <meta name="twitter:description" content="Founder of Cyvire, a cybersecurity-only hiring platform. Security program leader: FedRAMP, ISO 27001, SOC 2."/>
+  <meta name="twitter:image" content="https://armaanfarshori.github.io/Armaan.jpeg"/>
   <link rel="canonical" href="https://armaanfarshori.github.io/"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://armaanfarshori.github.io/#person",
+        "name": "Armaan Farshori",
+        "url": "https://armaanfarshori.github.io/",
+        "image": "https://armaanfarshori.github.io/Armaan.jpeg",
+        "jobTitle": "Technical Program Manager",
+        "worksFor": { "@type": "Organization", "name": "Fortreum" },
+        "description": "Founder of Cyvire, a cybersecurity-only hiring platform. Security program leader with seven years across FedRAMP, FISMA, CMMC, ISO 27001 and SOC 2.",
+        "address": { "@type": "PostalAddress", "addressLocality": "Greater Noida", "addressRegion": "Uttar Pradesh", "addressCountry": "IN" },
+        "alumniOf": [
+          { "@type": "CollegeOrUniversity", "name": "Amity University, Noida" },
+          { "@type": "CollegeOrUniversity", "name": "Kalinga University, Raipur" }
+        ],
+        "knowsAbout": ["Cybersecurity", "FedRAMP", "FISMA", "CMMC", "ISO 27001", "SOC 2", "NIST 800-53", "Cloud Security", "Security Program Management", "Audit Readiness", "Incident Response", "GRC", "Security Hiring"],
+        "knowsLanguage": ["English", "Hindi", "Arabic"],
+        "sameAs": [
+          "https://www.linkedin.com/in/armaanfarshori",
+          "https://scholar.google.com/citations?user=DJuriFMAAAAJ",
+          "https://medium.com/@armaanfarshori",
+          "https://github.com/armaanfarshori"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://armaanfarshori.github.io/#website",
+        "url": "https://armaanfarshori.github.io/",
+        "name": "Armaan Farshori",
+        "author": { "@id": "https://armaanfarshori.github.io/#person" }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://armaanfarshori.github.io/#cyvire",
+        "name": "Cyvire",
+        "description": "A hiring platform built only for cybersecurity. Evidence-based matching for security practitioners and teams.",
+        "founder": { "@id": "https://armaanfarshori.github.io/#person" }
+      }
+    ]
+  }
+  </script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='14' fill='%230B0A08'/%3E%3Ctext x='50' y='67' font-size='46' font-family='monospace' font-weight='bold' fill='%23F0A63B' text-anchor='middle'%3EAF%3C/text%3E%3C/svg%3E"/>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -229,13 +280,20 @@
       background: var(--bg-2); padding: 22px 0;
     }
     .marquee {
-      overflow: hidden;
-      mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
-      -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+      display: flex; overflow: hidden;
+      max-width: min(880px, 92vw); margin: 0 auto;
+      mask-image: linear-gradient(90deg, transparent, black 14%, black 86%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, black 14%, black 86%, transparent);
     }
-    .marquee-track { display: flex; width: max-content; align-items: center; animation: marquee 30s linear infinite; will-change: transform; }
-    .marquee:hover .marquee-track { animation-play-state: paused; }
-    @keyframes marquee { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+    /* two identical groups, each sliding its own full width:
+       the loop is seamless no matter how wide the container is */
+    .m-group {
+      display: flex; align-items: center; flex: 0 0 auto;
+      animation: marquee 26s linear infinite;
+      will-change: transform;
+    }
+    .marquee:hover .m-group { animation-play-state: paused; }
+    @keyframes marquee { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-100%, 0, 0); } }
     .m-item {
       display: flex; align-items: center; gap: 44px; padding: 0 22px;
       font-family: var(--disp); font-stretch: 110%; font-weight: 700;
@@ -465,8 +523,9 @@
       .mask > span { transform: none; transition: none; }
       .hero-sub, .hero-cta { opacity: 1; transform: none; filter: none; transition: none; }
       .kicker .cursor { animation: none; opacity: 1; }
-      .marquee-track { animation: none; flex-wrap: wrap; width: 100%; justify-content: center; }
-      .m-item[aria-hidden="true"] { display: none; }
+      .marquee { justify-content: center; }
+      .m-group { animation: none; flex-wrap: wrap; justify-content: center; }
+      .m-group[aria-hidden="true"] { display: none; }
       .r-rise, .r-fade, .bento .cell { opacity: 1; transform: none; transition: none; }
       .r-clip { clip-path: none; transition: none; }
       .spine::before { transform: none; transition: none; }
@@ -528,9 +587,11 @@
   <!-- marquee -->
   <div class="band" aria-label="Organisations">
     <div class="marquee">
-      <div class="marquee-track">
+      <div class="m-group">
         <span class="m-item">Fortreum</span><span class="m-item">Deloitte</span><span class="m-item">Delhivery</span><span class="m-item">CDAC</span><span class="m-item">Precise Technologies</span><span class="m-item">Cyvire</span>
-        <span class="m-item" aria-hidden="true">Fortreum</span><span class="m-item" aria-hidden="true">Deloitte</span><span class="m-item" aria-hidden="true">Delhivery</span><span class="m-item" aria-hidden="true">CDAC</span><span class="m-item" aria-hidden="true">Precise Technologies</span><span class="m-item" aria-hidden="true">Cyvire</span>
+      </div>
+      <div class="m-group" aria-hidden="true">
+        <span class="m-item">Fortreum</span><span class="m-item">Deloitte</span><span class="m-item">Delhivery</span><span class="m-item">CDAC</span><span class="m-item">Precise Technologies</span><span class="m-item">Cyvire</span>
       </div>
     </div>
   </div>
