@@ -1,0 +1,57 @@
+# Armaan Farshori
+
+> Founder of Cyvire, a hiring platform built only for cybersecurity. Technical
+> program manager with seven years running security and compliance programmes
+> that pass audits. Based in Greater Noida, India.
+
+## Who
+
+Armaan Farshori is a cybersecurity program leader and founder. He has spent
+seven years delivering security programmes across consulting (Deloitte,
+Fortreum), product companies (Delhivery) and government (CDAC, including
+Ministry of Defence projects). He is currently a Technical Program Manager
+at Fortreum and the founder of Cyvire.
+
+## Cyvire
+
+Cyvire is a cybersecurity-only hiring platform, in build as of 2026. It
+matches security practitioners and teams on evidence (programmes delivered,
+frameworks passed, incidents handled) rather than resume keywords.
+
+## Expertise
+
+- Compliance frameworks: FedRAMP, FISMA, CMMC, NIST 800-53, ISO 27001,
+  SOC 2, GDPR, DPDP Act
+- Cloud security on AWS and GCP; detection and response / SOC operations
+- Programme delivery: stakeholder management, RAID logs, executive
+  reporting, audit readiness, evidence pipelines
+- Tooling: Microsoft Sentinel, SIEM/SOAR, Ansible, Linux, Fortinet
+
+## Track record
+
+- Technical Program Manager, Fortreum (2026 to present)
+- Deputy Manager, Cyber Defence & Resilience, Deloitte (2025 to 2026)
+- Program Manager, Cyber Security, Delhivery (2021 to 2025): 95% of
+  critical vulnerabilities closed within SLA, operational risk down 40%
+- Project Engineer / Associate, CDAC (2021): Ministry of Defence delivery
+- Lead Technical Consultant, Precise Technologies, Dubai (2019 to 2021)
+
+## Credentials
+
+- ISC2 Certified in Cybersecurity (2025 to 2028); CISSP in progress
+- CDAC Scientist Level B exam cleared (MeitY, Government of India)
+- Alden Global Top 50 Cybersecurity Professional, North India
+- MCA (Amity University), BCA (Kalinga University)
+
+## Publications
+
+- Server-Less Cloud Computing: An Economical Solution for Business
+  Operations (Springer): https://link.springer.com/chapter/10.1007/978-981-15-2043-3_18
+- Collaborative Medical Inventory Resources Using Edge Computing
+  (IEEE AICAI): https://ieeexplore.ieee.org/abstract/document/8701242
+- UN-Uefi UN-Legacy (Medium): https://medium.com/@armaanfarshori/un-uefi-un-legacy-46d0891d88d7
+
+## Contact
+
+- LinkedIn: https://www.linkedin.com/in/armaanfarshori
+- Site: https://armaanfarshori.github.io/
