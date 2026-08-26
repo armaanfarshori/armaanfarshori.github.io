@@ -233,9 +233,9 @@
       mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
       -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
     }
-    .marquee-track { display: flex; width: max-content; align-items: center; animation: marquee 30s linear infinite; }
+    .marquee-track { display: flex; width: max-content; align-items: center; animation: marquee 30s linear infinite; will-change: transform; }
     .marquee:hover .marquee-track { animation-play-state: paused; }
-    @keyframes marquee { to { transform: translateX(-50%); } }
+    @keyframes marquee { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
     .m-item {
       display: flex; align-items: center; gap: 44px; padding: 0 22px;
       font-family: var(--disp); font-stretch: 110%; font-weight: 700;
@@ -247,7 +247,9 @@
     .m-item:hover { color: var(--mid); }
 
     /* ================= sections ================= */
-    section { padding: clamp(96px, 12vh, 150px) 0 0; }
+    /* section.wrap must outrank .wrap, whose padding shorthand was
+       zeroing the vertical rhythm between sections */
+    section.wrap { padding-top: clamp(110px, 14vh, 170px); }
     .sec-title {
       font-family: var(--disp); font-stretch: 118%; font-weight: 800;
       font-size: clamp(1.9rem, 3.8vw, 2.9rem);
@@ -464,12 +466,12 @@
       .hero-sub, .hero-cta { opacity: 1; transform: none; filter: none; transition: none; }
       .kicker .cursor { animation: none; opacity: 1; }
       .marquee-track { animation: none; flex-wrap: wrap; width: 100%; justify-content: center; }
+      .m-item[aria-hidden="true"] { display: none; }
       .r-rise, .r-fade, .bento .cell { opacity: 1; transform: none; transition: none; }
       .r-clip { clip-path: none; transition: none; }
       .spine::before { transform: none; transition: none; }
       .role::before { transform: scale(1); transition: none; }
       .cy-card:hover .cy-scan { animation: none; }
-      #mesh { display: none; }
       *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
     }
   </style>
@@ -693,17 +695,17 @@
   <section class="wrap" id="writing">
     <h2 class="sec-title r-clip">Writing.</h2>
     <div class="rows r-rise">
-      <a class="row" href="https://www.linkedin.com/in/armaanfarshori" target="_blank" rel="noopener">
+      <a class="row" href="https://link.springer.com/chapter/10.1007/978-981-15-2043-3_18" target="_blank" rel="noopener">
         <span class="row-venue">Springer</span>
-        <span class="row-title">Server-Less Cloud Computing: An Economic Solution for Business Operations</span>
+        <span class="row-title">Server-Less Cloud Computing: An Economical Solution for Business Operations</span>
         <span class="row-arr">→</span>
       </a>
-      <a class="row" href="https://www.linkedin.com/in/armaanfarshori" target="_blank" rel="noopener">
+      <a class="row" href="https://ieeexplore.ieee.org/abstract/document/8701242" target="_blank" rel="noopener">
         <span class="row-venue">IEEE AICAI</span>
         <span class="row-title">Collaborative Medical Inventory Resources Using Edge Computing</span>
         <span class="row-arr">→</span>
       </a>
-      <a class="row" href="https://www.linkedin.com/in/armaanfarshori" target="_blank" rel="noopener">
+      <a class="row" href="https://medium.com/@armaanfarshori/un-uefi-un-legacy-46d0891d88d7" target="_blank" rel="noopener">
         <span class="row-venue">Medium</span>
         <span class="row-title">UN-Uefi UN-Legacy</span>
         <span class="row-arr">→</span>
@@ -772,7 +774,58 @@
   }
 
   /* ---------- kicker scramble ---------- */
-  const WORDS = ['founder, cyvire', 'security program operator', 'audit survivor', 'builder'];
+  const WORDS = [
+    'founder, cyvire',
+    'audit survivor',
+    'security program operator',
+    'builder',
+    'evidence collector',
+    'fedramp whisperer',
+    'controls translator',
+    'scope creep negotiator',
+    'zero trust, some faith',
+    'poa&m gardener',
+    'compliance cartographer',
+    'threat model optimist',
+    'raid log realist',
+    'patch tuesday veteran',
+    'severity one, calm voice',
+    'kickoff to closure',
+    'soc 2 sherpa',
+    'iso 27001 fluent',
+    'least privilege advocate',
+    '95% inside sla',
+    'auditor\'s favorite contact',
+    'mitigation over panic',
+    'security hiring fixer',
+    'keyword filter abolitionist',
+    'talent signal amplifier',
+    'phishing drill sergeant',
+    'tabletop exercise host',
+    'war room coordinator',
+    'log line reader',
+    'sentinel tuner',
+    'runbook author',
+    'change freeze survivor',
+    'friday deploy objector',
+    'mfa evangelist',
+    'shadow it detective',
+    'vendor risk interrogator',
+    'dpdp act literate',
+    'gap analysis regular',
+    'evidence pipeline plumber',
+    'control freak, certified',
+    'professionally paranoid',
+    'calm under breach',
+    'shipping over slideware',
+    'risk register keeper',
+    'incident bridge caller',
+    'cloud perimeter skeptic',
+    'spreadsheet swordsman',
+    'deadline defender',
+    'resume noise reducer',
+    'greater noida, utc+5:30'
+  ];
   const GLYPHS = '!<>-_\\/[]{}=+*^?#0123456789';
   const scrEl = $('#scramble');
   if (scrEl && !RM) {
@@ -802,62 +855,96 @@
     setInterval(() => { wi = (wi + 1) % WORDS.length; scrambleTo(WORDS[wi]); }, 2800);
   }
 
-  /* ---------- hero canvas mesh ---------- */
+  /* ---------- hero canvas: constellation + shooting stars ---------- */
   const canvas = $('#mesh');
-  if (canvas && !RM) {
+  if (canvas) {
     const ctx = canvas.getContext('2d');
     const DPR = Math.min(window.devicePixelRatio || 1, 2);
-    let W, H, nodes = [], running = false, raf;
+    const LINK = 150, LINK2 = LINK * LINK;
+    let W, H, nodes = [], stars = [], running = false, raf, nextStar = 0;
     const ptr = { x: -9999, y: -9999 };
-    const N = () => Math.min(90, Math.round((W * H) / 22000));
     const resize = () => {
       W = canvas.offsetWidth; H = canvas.offsetHeight;
       canvas.width = W * DPR; canvas.height = H * DPR;
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-      nodes = Array.from({ length: N() }, () => ({
+      const count = Math.min(120, Math.round((W * H) / 16000));
+      nodes = Array.from({ length: count }, () => ({
         x: Math.random() * W, y: Math.random() * H,
-        vx: (Math.random() - .5) * .35, vy: (Math.random() - .5) * .35
+        vx: (Math.random() - .5) * .3, vy: (Math.random() - .5) * .3,
+        r: 1 + Math.random() * 1.4
       }));
     };
-    const draw = () => {
+    const paint = () => {
       ctx.clearRect(0, 0, W, H);
-      for (const n of nodes) {
-        const dx = n.x - ptr.x, dy = n.y - ptr.y;
-        const d2 = dx * dx + dy * dy;
-        if (d2 < 19600) { const d = Math.sqrt(d2) || 1; n.vx += (dx / d) * .18; n.vy += (dy / d) * .18; }
-        n.vx *= .985; n.vy *= .985;
-        n.x += n.vx; n.y += n.vy;
-        if (n.x < 0 || n.x > W) n.vx *= -1;
-        if (n.y < 0 || n.y > H) n.vy *= -1;
-      }
       ctx.lineWidth = 1;
       for (let i = 0; i < nodes.length; i++) {
         for (let j = i + 1; j < nodes.length; j++) {
           const a = nodes[i], b = nodes[j];
           const dx = a.x - b.x, dy = a.y - b.y;
           const d2 = dx * dx + dy * dy;
-          if (d2 < 16900) {
-            const alpha = (1 - d2 / 16900) * .14;
-            ctx.strokeStyle = `rgba(240,166,59,${alpha})`;
+          if (d2 < LINK2) {
+            ctx.strokeStyle = `rgba(240,166,59,${(1 - d2 / LINK2) * .28})`;
             ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
           }
         }
       }
-      ctx.fillStyle = 'rgba(237,230,216,.35)';
-      for (const n of nodes) { ctx.fillRect(n.x - 1, n.y - 1, 2, 2); }
-      if (running) raf = requestAnimationFrame(draw);
+      ctx.fillStyle = 'rgba(237,230,216,.6)';
+      for (const n of nodes) {
+        ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, 6.2832); ctx.fill();
+      }
+    };
+    const step = (t) => {
+      for (const n of nodes) {
+        const dx = n.x - ptr.x, dy = n.y - ptr.y;
+        const d2 = dx * dx + dy * dy;
+        if (d2 < 19600) { const d = Math.sqrt(d2) || 1; n.vx += (dx / d) * .16; n.vy += (dy / d) * .16; }
+        n.vx *= .985; n.vy *= .985;
+        n.x += n.vx; n.y += n.vy;
+        if (n.x < 0 || n.x > W) n.vx *= -1;
+        if (n.y < 0 || n.y > H) n.vy *= -1;
+      }
+      paint();
+      /* shooting stars */
+      if (t > nextStar) {
+        const s = {
+          x: Math.random() * W * .9, y: Math.random() * H * .35,
+          vx: 7 + Math.random() * 5, vy: 2.5 + Math.random() * 2.5,
+          life: 1
+        };
+        if (Math.random() < .35) s.vx *= -1;
+        stars.push(s);
+        nextStar = t + 1800 + Math.random() * 3000;
+      }
+      for (const s of stars) {
+        const tail = 10;
+        const g = ctx.createLinearGradient(s.x, s.y, s.x - s.vx * tail, s.y - s.vy * tail);
+        g.addColorStop(0, `rgba(255,232,190,${.9 * s.life})`);
+        g.addColorStop(1, 'rgba(255,232,190,0)');
+        ctx.strokeStyle = g; ctx.lineWidth = 1.6;
+        ctx.beginPath(); ctx.moveTo(s.x, s.y); ctx.lineTo(s.x - s.vx * tail, s.y - s.vy * tail); ctx.stroke();
+        ctx.lineWidth = 1;
+        s.x += s.vx; s.y += s.vy; s.life -= .022;
+      }
+      stars = stars.filter((s) => s.life > 0 && s.x > -80 && s.x < W + 80 && s.y < H + 80);
+      if (running) raf = requestAnimationFrame(step);
     };
     resize();
-    window.addEventListener('resize', resize);
-    canvas.parentElement.addEventListener('pointermove', (e) => {
-      const r = canvas.getBoundingClientRect();
-      ptr.x = e.clientX - r.left; ptr.y = e.clientY - r.top;
-    });
-    canvas.parentElement.addEventListener('pointerleave', () => { ptr.x = -9999; ptr.y = -9999; });
-    new IntersectionObserver(([e]) => {
-      if (e.isIntersecting && !running) { running = true; draw(); }
-      else if (!e.isIntersecting && running) { running = false; cancelAnimationFrame(raf); }
-    }).observe(canvas);
+    if (RM) {
+      /* reduced motion: one static constellation frame, no loop, no stars */
+      paint();
+      window.addEventListener('resize', () => { resize(); paint(); });
+    } else {
+      window.addEventListener('resize', resize);
+      canvas.parentElement.addEventListener('pointermove', (e) => {
+        const r = canvas.getBoundingClientRect();
+        ptr.x = e.clientX - r.left; ptr.y = e.clientY - r.top;
+      });
+      canvas.parentElement.addEventListener('pointerleave', () => { ptr.x = -9999; ptr.y = -9999; });
+      new IntersectionObserver(([e]) => {
+        if (e.isIntersecting && !running) { running = true; raf = requestAnimationFrame(step); }
+        else if (!e.isIntersecting && running) { running = false; cancelAnimationFrame(raf); }
+      }).observe(canvas);
+    }
   }
 
   /* ---------- scroll reveals ---------- */
