@@ -229,13 +229,20 @@
       background: var(--bg-2); padding: 22px 0;
     }
     .marquee {
-      overflow: hidden;
-      mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
-      -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+      display: flex; overflow: hidden;
+      max-width: min(880px, 92vw); margin: 0 auto;
+      mask-image: linear-gradient(90deg, transparent, black 14%, black 86%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, black 14%, black 86%, transparent);
     }
-    .marquee-track { display: flex; width: max-content; align-items: center; animation: marquee 30s linear infinite; will-change: transform; }
-    .marquee:hover .marquee-track { animation-play-state: paused; }
-    @keyframes marquee { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+    /* two identical groups, each sliding its own full width:
+       the loop is seamless no matter how wide the container is */
+    .m-group {
+      display: flex; align-items: center; flex: 0 0 auto;
+      animation: marquee 26s linear infinite;
+      will-change: transform;
+    }
+    .marquee:hover .m-group { animation-play-state: paused; }
+    @keyframes marquee { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-100%, 0, 0); } }
     .m-item {
       display: flex; align-items: center; gap: 44px; padding: 0 22px;
       font-family: var(--disp); font-stretch: 110%; font-weight: 700;
@@ -465,8 +472,9 @@
       .mask > span { transform: none; transition: none; }
       .hero-sub, .hero-cta { opacity: 1; transform: none; filter: none; transition: none; }
       .kicker .cursor { animation: none; opacity: 1; }
-      .marquee-track { animation: none; flex-wrap: wrap; width: 100%; justify-content: center; }
-      .m-item[aria-hidden="true"] { display: none; }
+      .marquee { justify-content: center; }
+      .m-group { animation: none; flex-wrap: wrap; justify-content: center; }
+      .m-group[aria-hidden="true"] { display: none; }
       .r-rise, .r-fade, .bento .cell { opacity: 1; transform: none; transition: none; }
       .r-clip { clip-path: none; transition: none; }
       .spine::before { transform: none; transition: none; }
@@ -528,9 +536,11 @@
   <!-- marquee -->
   <div class="band" aria-label="Organisations">
     <div class="marquee">
-      <div class="marquee-track">
+      <div class="m-group">
         <span class="m-item">Fortreum</span><span class="m-item">Deloitte</span><span class="m-item">Delhivery</span><span class="m-item">CDAC</span><span class="m-item">Precise Technologies</span><span class="m-item">Cyvire</span>
-        <span class="m-item" aria-hidden="true">Fortreum</span><span class="m-item" aria-hidden="true">Deloitte</span><span class="m-item" aria-hidden="true">Delhivery</span><span class="m-item" aria-hidden="true">CDAC</span><span class="m-item" aria-hidden="true">Precise Technologies</span><span class="m-item" aria-hidden="true">Cyvire</span>
+      </div>
+      <div class="m-group" aria-hidden="true">
+        <span class="m-item">Fortreum</span><span class="m-item">Deloitte</span><span class="m-item">Delhivery</span><span class="m-item">CDAC</span><span class="m-item">Precise Technologies</span><span class="m-item">Cyvire</span>
       </div>
     </div>
   </div>
